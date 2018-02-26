@@ -17,7 +17,11 @@ public class ChartEntity {
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        if (!(o instanceof ChartEntity))
+            return false;
+        if (o == this)
+            return true;
+        return (((ChartEntity) o).getTitle().equals(title) && ((ChartEntity) o).getValue() == value);
     }
 
     @Override

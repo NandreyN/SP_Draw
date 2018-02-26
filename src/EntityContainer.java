@@ -1,13 +1,13 @@
-import java.awt.*;
+
+import java.awt.Color;
 import java.util.*;
+import java.util.List;
 
 public class EntityContainer<T extends ChartEntity> {
     private Map<T, Color> entities;
-    private Random random;
 
     public EntityContainer() {
         entities = new HashMap<>();
-        random = new Random();
     }
 
     public void add(T ce) {
@@ -22,11 +22,22 @@ public class EntityContainer<T extends ChartEntity> {
         return entities.keySet().stream().filter(x -> x.getTitle().equals(title)).findFirst().get();
     }
 
+    public List<String> getTitles() {
+        List<String> titles = new ArrayList<>();
+        entities.keySet().forEach(x -> titles.add(x.getTitle()));
+        return titles;
+    }
+
+    public List<ChartEntity> getEntities() {
+        return new ArrayList<>(entities.keySet());
+    }
+
     public Color getColorFor(T e) {
         return entities.entrySet().stream().filter(x -> x.getKey().equals(e)).findFirst().get().getValue();
     }
 
-    private Color getRandomColor() {
+    public static Color getRandomColor() {
+        Random random = new Random();
         return new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
     }
 }

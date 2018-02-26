@@ -40,8 +40,11 @@ public class PieChartDataReader {
             if (lineContent.length != 2)
                 throw new InputDataFormatException("Invalid number of arguments in at row #" + row);
 
-            if (!isDouble(lineContent[1]))
-                throw new InputDataFormatException("Second parameter in row " + row + " is not double");
+            if (lineContent[0].isEmpty())
+                throw new InputDataFormatException("Category title is empty");
+
+            if (!isDouble(lineContent[1]) || Double.parseDouble(lineContent[1]) < 0)
+                throw new InputDataFormatException("Second parameter in row " + row + " is not valid double");
 
             readTo.add((T) new ChartEntity(lineContent[0], Double.parseDouble(lineContent[1])));
             row++;

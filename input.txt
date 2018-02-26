@@ -1,5 +1,5 @@
 Toasts;23
 Salads;88
+Desserts;99
 Soups;10
 Drinks;150
-Desserts;99

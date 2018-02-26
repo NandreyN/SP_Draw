@@ -98,6 +98,9 @@ public class RotationFrame extends JFrame {
                 super.componentResized(e);
                 width = surfacePanel.getWidth();
                 height = surfacePanel.getHeight();
+                if (width <= 0 || height <= 0)
+                    return;
+
                 R = Integer.min(width / 2, height / 2) - wheel.getIconHeight() / 2;
                 if (R == 0)
                     return;
