@@ -5,6 +5,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class RotationFrame extends JFrame {
     static final int V_MIN = 0;
@@ -86,7 +87,19 @@ public class RotationFrame extends JFrame {
         V = V_INIT;
         tRatio = 1;
 
-        wheel = getScaledImage(new ImageIcon("wheel.jpg"), 80, 80);
+        JFileChooser fileopen = new JFileChooser();
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        fileopen.setCurrentDirectory(workingDirectory);
+        int ret = fileopen.showDialog(null, "Открыть файл");
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File file = fileopen.getSelectedFile();
+            if (!file.getAbsolutePath().endsWith(".jpg"))
+                wheel = getScaledImage(new ImageIcon("wheel.jpg"), 80, 80);
+            else
+                wheel = getScaledImage(new ImageIcon(file.getAbsolutePath()), 80, 80);
+        } else {
+            return;
+        }
 
         setLayout(new BorderLayout());
         add(surfacePanel, BorderLayout.CENTER);
@@ -149,8 +162,7 @@ public class RotationFrame extends JFrame {
         });
     }
 
-    private void checkSpeedDirection()
-    {
+    private void checkSpeedDirection() {
         int idx = list.getSelectedIndex();
         switch (idx) {
             case 0:
